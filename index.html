@@ -1,49 +1,162 @@
-<!-- index.html -->
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Priyanshi Rana | Full Stack Developer</title>
-  <meta name="description" content="Portfolio of Priyanshi Rana – Full Stack Developer. Creative 3D landing experience.">
-  <style>
-    body {
-      margin: 0;
-      background: #000;
-      color: white;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      font-family: sans-serif;
-    }
-    iframe {
-      border: none;
-      width: 80%;
-      height: 60vh;
-      max-width: 900px;
-    }
-    button {
-      margin-top: 20px;
-      padding: 12px 24px;
-      background: white;
-      color: black;
-      border: none;
-      border-radius: 6px;
-      font-size: 16px;
-      cursor: pointer;
-    }
-  </style>
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Priyanshi Rana | Full Stack Developer</title>
+    <meta
+      name="description"
+      content="Portfolio of Priyanshi Rana – Full Stack Developer. Creative 3D landing experience."
+    />
+    <link rel="icon" type="image/png" href="./P.png" />
+    <link rel="apple-touch-icon" href="./P.png" />
+    <style>
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        max-height: 100vh;
+        font-family: sans-serif;
+        background: linear-gradient(180deg, #3691ef, #3690ed);
+        color: white;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
 
-  <!-- Spline embed link can go here -->
-  <iframe src="https://my.spline.design/yourcharacter" allowfullscreen></iframe>
+      .logo-class {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+      }
 
-  <button onclick="window.location.href='https://priyanshirana.framer.website'">
-    Enter Portfolio →
-  </button>
+      .container {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 30px;
+        text-align: center;
+        backdrop-filter: blur(80px);
+      }
 
-</body>
+      .video-wrapper {
+        position: relative;
+        display: inline-block;
+        border-radius: 25% 25% 38% 25%;
+      }
+
+      .img {
+        max-height: 88vh;
+        width: auto;
+        display: block;
+        border: none;
+        border-radius: 25% 25% 38% 25%;
+      }
+
+      .mute-toggle {
+        position: absolute;
+        top: 5vh;
+        right: 10vh;
+        padding: 8px 16px;
+        background-color: rgb(197, 255, 65);
+        color: black;
+        border: none;
+        border-radius: 25%;
+        font-size: 1vh;
+        font-weight: bold;
+        cursor: pointer;
+        box-shadow: inset 4px 4px 8px rgba(0, 0, 0, 0.2),
+          inset -2px -2px 4px rgba(255, 255, 255, 0.15);
+        transition: all 0.2s ease-in-out;
+        outline: none;
+      }
+
+      .mute-toggle:focus {
+        outline: none;
+        box-shadow: none;
+      }
+
+      .mute-toggle:active {
+        transform: scale(0.97);
+        box-shadow: inset 5px 5px 10px rgba(0, 0, 0, 0.25),
+          inset -3px -3px 5px rgba(255, 255, 255, 0.2);
+        border: none;
+      }
+
+      .mute-toggle img {
+        width: 42px;
+      }
+      /* 
+      .control {
+        margin-top: 20px;
+      } */
+
+      .control-button {
+        padding: 14px 48px;
+        background-color: rgb(244, 108, 56);
+        color: black;
+        border: none;
+        border-radius: 12px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        cursor: pointer;
+        box-shadow: inset 4px 4px 8px rgba(0, 0, 0, 0.2),
+          inset -2px -2px 4px rgba(255, 255, 255, 0.15);
+        transition: all 0.2s ease-in-out;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .control-button:active {
+        transform: scale(0.97);
+        box-shadow: inset 5px 5px 10px rgba(0, 0, 0, 0.25),
+          inset -3px -3px 5px rgba(255, 255, 255, 0.2);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="video-wrapper">
+        <video id="introVideo" autoplay muted loop playsinline class="img">
+          <source src="./Work.mp4" type="video/mp4" />
+        </video>
+        <button class="mute-toggle" id="muteButton">
+          <img id="muteIcon" src="./mute.png" alt="Toggle Mute" />
+        </button>
+      </div>
+
+      <div class="control"></div>
+      <div class="logo-class">
+        <button
+          class="control-button"
+          onclick="window.location.href='https://priyanshirana.framer.website'"
+        >
+          Enter Portfolio →
+        </button>
+      </div>
+    </div>
+
+    <script>
+      const video = document.getElementById("introVideo");
+      const muteBtn = document.getElementById("muteButton");
+      const muteIcon = document.getElementById("muteIcon");
+
+      muteBtn.addEventListener("click", () => {
+        if (video.muted) {
+          video.muted = false;
+          video.play();
+          muteIcon.src = "./unmute.png";
+        } else {
+          video.muted = true;
+          muteIcon.src = "./mute.png";
+        }
+      });
+    </script>
+  </body>
 </html>
