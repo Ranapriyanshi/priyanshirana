@@ -58,6 +58,50 @@
         border-radius: 25% 25% 38% 25%;
       }
 
+      .video-wrapper video {
+        opacity: 0;
+        transition: opacity 0.5s ease-in;
+      }
+
+      .video-wrapper video.loaded {
+        opacity: 1;
+      }
+
+      .loading-placeholder {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(180deg, #3691ef, #3690ed);
+        border-radius: 25% 25% 38% 25%;
+        opacity: 1;
+        transition: opacity 0.5s ease-out;
+      }
+
+      .loading-placeholder.hidden {
+        opacity: 0;
+        pointer-events: none;
+      }
+
+      .spinner {
+        width: 50px;
+        height: 50px;
+        border: 4px solid rgba(255, 255, 255, 0.3);
+        border-top-color: white;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+      }
+
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
       .mute-toggle {
         position: absolute;
         top: 5vh;
@@ -123,7 +167,18 @@
   <body>
     <div class="container">
       <div class="video-wrapper">
-        <video id="introVideo" autoplay muted loop playsinline class="img">
+        <div class="loading-placeholder" id="loadingPlaceholder">
+          <div class="spinner"></div>
+        </div>
+        <video
+          id="introVideo"
+          autoplay
+          muted
+          loop
+          playsinline
+          preload="metadata"
+          class="img"
+        >
           <source src="./Work.mp4" type="video/mp4" />
         </video>
         <button class="mute-toggle" id="muteButton">
@@ -146,6 +201,22 @@
       const video = document.getElementById("introVideo");
       const muteBtn = document.getElementById("muteButton");
       const muteIcon = document.getElementById("muteIcon");
+      const loadingPlaceholder = document.getElementById("loadingPlaceholder");
+
+      // Show loading placeholder initially
+      loadingPlaceholder.style.display = "flex";
+
+      // Hide loading placeholder when video can play
+      video.addEventListener("canplaythrough", () => {
+        video.classList.add("loaded");
+        loadingPlaceholder.classList.add("hidden");
+        setTimeout(() => {
+          loadingPlaceholder.style.display = "none";
+        }, 500);
+      });
+
+      // Start loading video
+      video.load();
 
       muteBtn.addEventListener("click", () => {
         if (video.muted) {
